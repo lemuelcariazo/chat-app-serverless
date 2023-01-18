@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    trim: true,
   },
   email: {
     type: String,
@@ -17,6 +15,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     required: true,
+  },
+  loggedIn: {
+    type: Boolean,
   },
   createdAt: {
     type: Date,

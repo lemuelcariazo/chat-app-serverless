@@ -23,7 +23,6 @@ app.use(
   })
 );
 
-// connect db ////////////////////
 mongoose.set("strictQuery", true);
 mongoose.connect(
   development.database.user,
@@ -39,16 +38,13 @@ mongoose.connect(
     }
   }
 );
-/////////////////////////////////
 
-app.use("/api", routes);
+app.use("/api", routes); // my starting route
 
-////////////////////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "client", "dist")));
 app.get("*", (__, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
-////////////////////////////////////////////////////////////////
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
