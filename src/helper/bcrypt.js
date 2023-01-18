@@ -9,5 +9,3 @@ const hashPassword = async (password, salt) => {
 };
 
 module.exports = { comparePassword, hashPassword };
-
-// already done
