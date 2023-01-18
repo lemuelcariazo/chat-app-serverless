@@ -1,3 +1,4 @@
 .env
 records.md
 node_modules
+.vercel

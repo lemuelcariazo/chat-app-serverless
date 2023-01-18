@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { config } from "./config";
 
 type DATA = {
   data?: string;
@@ -8,11 +9,13 @@ type DATA = {
 
 function App() {
   const [data, setData] = useState<string | null>(null);
+  const { development, production } = config;
+  const { BASE_URL } = development;
 
   const handleData = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     axios
-      .get("http://localhost:8080/api")
+      .get(`${BASE_URL}/api`)
       .then((res) => {
         setData(res.data);
       })
@@ -34,3 +37,5 @@ function App() {
 }
 
 export default App;
+
+// this will handle routing
