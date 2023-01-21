@@ -6,7 +6,7 @@ const { createJwt } = require("../../helper/jwt");
 
 const User = require("../../models/User");
 
-const authentiction = async (req, res, next) => {
+const authentication = async (req, res, next) => {
   // to verify the user if he is human or legitimate user
   const { email, password, isLogin } = req.body;
 
@@ -27,6 +27,7 @@ const authentiction = async (req, res, next) => {
   try {
     const token = createJwt(user); // create jwt token
     saveCookie(token, res); // store token in http only cookie
+
     return next();
   } catch (e) {
     return res.status(401).send(e);
@@ -46,7 +47,6 @@ const authorization = async (req, res, next) => {
       error: "Please Login",
     });
   }
-  return;
 };
 
-module.exports = { authentiction, authorization };
+module.exports = { authentication, authorization };

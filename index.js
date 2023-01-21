@@ -18,6 +18,7 @@ app.use(
     origin: [
       "http://localhost:8080",
       "http://localhost:4000",
+      "http://localhost:5173",
       "https://chat-app-serverless.vercel.app",
     ],
     credentials: true,

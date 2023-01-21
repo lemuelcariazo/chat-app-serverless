@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-// const { validateJWT } = require("../helper/jwt");
-const { authentiction, authorization } = require("./auth/auth");
+const { authentication, authorization } = require("./auth/auth");
+const { updateUser } = require("../helper/findUser");
 
 const {
   handleRegister,
@@ -11,8 +11,11 @@ const {
 } = require("../controllers/userController");
 
 router.post("/register", handleRegister);
-router.post("/login", authentiction, handleLogin);
-router.get("/profile", authorization, handleProfile);
+router.post("/login", authentication, handleLogin);
+router.get("/profile", authorization, updateUser, handleProfile);
 router.delete("/logout", handleLogout);
+router.get("/", (__, res) => {
+  res.send("It is working fine");
+});
 
 module.exports = router;

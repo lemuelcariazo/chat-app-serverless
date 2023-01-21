@@ -1,6 +1,8 @@
 const { hashPassword, comparePassword } = require("../helper/bcrypt");
 const { findUser, createUser } = require("../helper/findUser");
-const { saveCookie, deleteCookie } = require("../helper/cookie");
+const { deleteCookie } = require("../helper/cookie");
+const User = require("../models/User");
+const { send } = require("vite");
 
 const handleRegister = async (req, res) => {
   const { email, password } = req.body;
@@ -23,25 +25,6 @@ const handleRegister = async (req, res) => {
 };
 
 const handleLogin = async (req, res) => {
-  // const { email, password, isLogin } = req.body;
-
-  // if (!email || !password) {
-  //   return res.status(401).send("Please complete your credential");
-  // }
-  // const user = await findUser(email);
-  // if (!user) {
-  //   return res.status(401).send("Username and Password is not valid");
-  // }
-
-  // const hashPassword = user.password;
-  // const comparePwd = await comparePassword(password, hashPassword);
-  // if (!comparePwd) {
-  //   return res.status(401).send("Username and Password is not valid!");
-  // }
-
-  // const token = createJwt(user); // create jwt token
-  // saveCookie(token, res); // store token in http only cookie
-
   try {
     return res.send("Login Successfully");
   } catch (error) {
@@ -51,6 +34,7 @@ const handleLogin = async (req, res) => {
 
 const handleProfile = async (req, res) => {
   const { _id, email } = req.user;
+
   try {
     return res.json({
       id: _id,
