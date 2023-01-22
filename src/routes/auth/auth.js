@@ -40,6 +40,9 @@ const authorization = async (req, res, next) => {
     const decoded = await validateJWT(req);
     const user = await User.findById(decoded._id);
     req.user = user;
+
+    user.loggedIn = true;
+    await user.save();
     return next();
   } catch (e) {
     return res.status(403).json({
@@ -48,5 +51,7 @@ const authorization = async (req, res, next) => {
     });
   }
 };
+
+const findDecoded = () => {};
 
 module.exports = { authentication, authorization };

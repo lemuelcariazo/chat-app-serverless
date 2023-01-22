@@ -46,8 +46,44 @@ const handleProfile = async (req, res) => {
 };
 
 const handleLogout = async (__, res) => {
+  const decoded = await validateJWT(req);
+  const user = await User.findById(decoded._id);
+  req.user = user;
+
   await deleteCookie(res);
   return res.status(200).send("Logout Successfully");
 };
 
-module.exports = { handleRegister, handleLogin, handleLogout, handleProfile };
+const checkLoggedIn = async (req, res, next) => {
+  const { _id } = req.user;
+
+  const user = await User.findOne({
+    _id: _id,
+  });
+
+  console.log(user.loggedIn);
+
+  if (!user.loggedIn) {
+    return res.status(500).send("Internal server Error");
+  }
+
+  // find the user first based on the id given by the request
+
+  // to update user after logging in the loggined property will change base on the output
+
+  // loggedIn = true ? loggedIn = false :: viceVersa
+
+  try {
+    return next();
+  } catch (e) {
+    return res.status(500).send("Internal server Error");
+  }
+};
+
+module.exports = {
+  handleRegister,
+  handleLogin,
+  handleLogout,
+  handleProfile,
+  checkLoggedIn,
+};
