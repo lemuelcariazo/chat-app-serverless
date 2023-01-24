@@ -1,18 +1,7 @@
-import { useEffect, useState, useContext, useMemo } from "react";
-import { UserContext } from "../utils/userContext";
+import React from "react";
 
 function Home() {
-  const { value } = useContext(UserContext);
-  console.log(typeof value);
-  useMemo(() => {
-    value;
-  }, [value]);
-
-  return (
-    <>
-      <h1>{value}</h1>
-    </>
-  );
+  return <div>Home</div>;
 }
 
 export default Home;

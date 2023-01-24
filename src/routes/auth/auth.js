@@ -27,7 +27,8 @@ const authentication = async (req, res, next) => {
   try {
     const token = createJwt(user); // create jwt token
     saveCookie(token, res); // store token in http only cookie
-
+    user.loggedIn = true;
+    await user.save();
     return next();
   } catch (e) {
     return res.status(401).send(e);
@@ -41,8 +42,9 @@ const authorization = async (req, res, next) => {
     const user = await User.findById(decoded._id);
     req.user = user;
 
-    user.loggedIn = true;
-    await user.save();
+    const { _id } = req.user;
+    console.log(_id);
+
     return next();
   } catch (e) {
     return res.status(403).json({
@@ -51,7 +53,5 @@ const authorization = async (req, res, next) => {
     });
   }
 };
-
-const findDecoded = () => {};
 
 module.exports = { authentication, authorization };

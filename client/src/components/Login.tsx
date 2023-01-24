@@ -1,59 +1,21 @@
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { config } from "../config";
-import axios from "axios";
-import { UserContext } from "../utils/userContext";
-
-function Login() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  const { development, production } = config;
-  const { value, setValue } = useContext(UserContext);
-
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${development.BASE_URL}/api/login`, {
-        email: email,
-        password: password,
-      });
-      setValue(response?.data);
-      navigate("/");
-    } catch (e: any) {
-      console.log(e.response);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
-    return <h1>loading...</h1>;
-  }
-
+function Login({ email, setEmail, pw, setPw }: any) {
   return (
-    <>
-      <div className="flex justify-center items-center">
-        <form className="flex justify-center items-center flex-col gap-12">
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className=""
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
-        </form>
-      </div>
-    </>
+    <div className="flex justify-center items-center flex-col gap-6">
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="font-extrabold placeholder:font-bold bg-gray-50 border  border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 hover:rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="you.example.com"
+      />
+      <input
+        type="password"
+        value={pw}
+        onChange={(e) => setPw(e.target.value)}
+        className="font-extrabold placeholder:font-bold bg-gray-50 border  border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 hover:rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Password"
+      />
+    </div>
   );
 }
 

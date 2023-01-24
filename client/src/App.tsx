@@ -1,66 +1,52 @@
-import "./index.css";
-import { useState, useMemo } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-axios.defaults.withCredentials = true;
 
 import Home from "./pages/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Auth from "./pages/Authentication";
+import Profile from "./pages/Profile";
 
-import { UserContext } from "./utils/userContext";
+axios.defaults.withCredentials = true;
 
 function App() {
-  const [value, setValue] = useState<string | null>(null);
-  const providerValue = useMemo(
-    () => ({
-      value,
-      setValue,
-    }),
-    [value, setValue]
-  );
+  const navigate = useNavigate();
+
+  const showSomething = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
   return (
-    <>
-      <div className="flex justify-center items-center flex-col w-screen h-screen text-md font-extrabold">
-        <header className="h-fit">
-          <nav className="w-screen flex justify-between items-center">
-            <Link
-              to="/"
-              className="w-fit m-4 border border-slate-900 rounded-full p-3 cursor-pointer drop-shadow-md"
-            >
-              🔥
-            </Link>
-            <div className=" h-16 px-2 flex justify-between items-center gap-x-5 mx-4">
-              <Link className="" to="/register">
-                Register
-              </Link>
-              <div className="w-20 h-full flex justify-center items-center">
-                <Link
-                  className="bg-red-500 rounded-lg p-4 active:p-2"
-                  to="/login"
-                >
-                  Login
-                </Link>
-              </div>
-            </div>
-          </nav>
-        </header>
-        <main className="bg-gradient-to-b from-red-800 to-red-300 flex justify-center items-center flex-col w-screen h-full">
-          <UserContext.Provider value={providerValue}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
-          </UserContext.Provider>
-        </main>
-      </div>
-    </>
+    <div className="flex justify-center items-center flex-col h-screen w-screen font-extrabold text-slate-200 dark:bg-gray-700">
+      <header className="cursor-pointer top-0 left-0 right-0 absolute bg-sky-100 h-14 drop-shadow-md shadow-inner flex justify-between items-center w-screen dark:bg-gray-800">
+        <div
+          className="font-black m-4 flex justify-center items-center"
+          onClick={showSomething}
+        >
+          <h1>CHATAM</h1>
+          <div className="animate-bounce">🔥</div>
+        </div>
+        <nav>
+          <button
+            className="font-black m-4"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              navigate("/auth");
+            }}
+          >
+            LOGIN
+          </button>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/auth/profile" element={<Profile />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
 export default App;
-
-// this will handle routing
-// border border-slate-900

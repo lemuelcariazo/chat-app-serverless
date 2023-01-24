@@ -2,7 +2,6 @@ const { hashPassword, comparePassword } = require("../helper/bcrypt");
 const { findUser, createUser } = require("../helper/findUser");
 const { deleteCookie } = require("../helper/cookie");
 const User = require("../models/User");
-const { send } = require("vite");
 
 const handleRegister = async (req, res) => {
   const { email, password } = req.body;
@@ -45,13 +44,25 @@ const handleProfile = async (req, res) => {
   }
 };
 
-const handleLogout = async (__, res) => {
-  const decoded = await validateJWT(req);
-  const user = await User.findById(decoded._id);
-  req.user = user;
+const handleLogout = async (req, res) => {
+  try {
+    await deleteCookie(res);
+    return res.status(200).send("Logout Successfully");
+  } catch (e) {
+    res.status(500).send("Internal server error", e);
+  }
+};
 
-  await deleteCookie(res);
-  return res.status(200).send("Logout Successfully");
+const catchIdAndUpdate = async (req, res, next) => {
+  const { _id } = req.user;
+  const user = await User.findOne({
+    _id: _id,
+  });
+
+  console.log(user);
+  user.loggedIn = false;
+  user.save();
+  return next();
 };
 
 const checkLoggedIn = async (req, res, next) => {
@@ -67,12 +78,6 @@ const checkLoggedIn = async (req, res, next) => {
     return res.status(500).send("Internal server Error");
   }
 
-  // find the user first based on the id given by the request
-
-  // to update user after logging in the loggined property will change base on the output
-
-  // loggedIn = true ? loggedIn = false :: viceVersa
-
   try {
     return next();
   } catch (e) {
@@ -85,5 +90,6 @@ module.exports = {
   handleLogin,
   handleLogout,
   handleProfile,
+  catchIdAndUpdate,
   checkLoggedIn,
 };
