@@ -1,38 +1,28 @@
-import { useEffect, useState } from "react";
 import { config } from "../config";
-import axios from "axios";
+import useFetch from "../hooks/useFetch";
 
-type DATA = {
-  email?: string;
-  id?: string;
+type LOG = {
+  getLogs: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function Profile() {
-  const [value, setValue] = useState<DATA>({});
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { development, production } = config;
-  const { id, email } = value;
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(development.BASE_URL + "/api/profile")
-      .then((response) => {
-        const { data } = response;
-        setValue(data);
-      })
-      .catch((e) => {
-        console.error(e);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
 
-    return console.log("clean up");
-  }, []);
+  const { value, isLoading, error } = useFetch(
+    `${development.BASE_URL}/api/profile`
+  );
+
+  const { id, email, loggedIn } = value;
 
   return (
-    <div>
-      <h1>{isLoading ? "Loading..." : `Hello, ${id} ${email}`}</h1>
+    <div className="flex justify-center items-center">
+      {loggedIn ? (
+        <h1 className="text-center">
+          {isLoading ? "Loading..." : `Hello, ${id} ${email} ${loggedIn}`}
+        </h1>
+      ) : (
+        error
+      )}
     </div>
   );
 }

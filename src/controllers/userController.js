@@ -32,12 +32,13 @@ const handleLogin = async (req, res) => {
 };
 
 const handleProfile = async (req, res) => {
-  const { _id, email } = req.user;
+  const { _id, email, loggedIn } = req.user;
 
   try {
     return res.json({
       id: _id,
       email: email,
+      loggedIn: loggedIn,
     });
   } catch (e) {
     return res.send(e);
@@ -59,7 +60,6 @@ const catchIdAndUpdate = async (req, res, next) => {
     _id: _id,
   });
 
-  console.log(user);
   user.loggedIn = false;
   user.save();
   return next();
@@ -71,8 +71,6 @@ const checkLoggedIn = async (req, res, next) => {
   const user = await User.findOne({
     _id: _id,
   });
-
-  console.log(user.loggedIn);
 
   if (!user.loggedIn) {
     return res.status(500).send("Internal server Error");

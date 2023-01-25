@@ -6,21 +6,12 @@ import axios from "axios";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-interface ACTIONS {
-  handleLogin?: Function;
-}
-
-interface RES {
-  response?: string;
-  data?: string;
-}
-
-function Authentication() {
+function Authentication({ getData }: any) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { development } = config;
+  const { development, production } = config;
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,8 +23,7 @@ function Authentication() {
         password: password,
       })
       .then((res) => {
-        console.log(res);
-
+        getData(res);
         if (res) {
           navigate("/auth/profile");
         }

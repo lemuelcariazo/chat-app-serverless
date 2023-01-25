@@ -42,9 +42,6 @@ const authorization = async (req, res, next) => {
     const user = await User.findById(decoded._id);
     req.user = user;
 
-    const { _id } = req.user;
-    console.log(_id);
-
     return next();
   } catch (e) {
     return res.status(403).json({
