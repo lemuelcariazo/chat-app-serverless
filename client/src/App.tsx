@@ -44,7 +44,8 @@ function App() {
 
   useEffect(() => {
     let isIgnored = false;
-    memoizeData?.data === "Login Successfully"
+    console.log(memoizeData?.data);
+    data?.data === "Login Successfully"
       ? setNavList(["Profile", "Logout"])
       : setNavList(["Login"]);
     return () => {
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <div className="flex justify-center items-center flex-col h-screen w-screen font-extrabold text-slate-200 dark:bg-gray-700">
-      <header className="cursor-pointer top-0 left-0 right-0 absolute bg-sky-100 h-14 drop-shadow-md shadow-inner flex justify-between items-center w-screen dark:bg-gray-800">
+      <header className="top-0 left-0 right-0 absolute bg-sky-100 h-14 drop-shadow-md shadow-inner flex justify-between items-center w-screen dark:bg-gray-800">
         <div className="font-black m-4 flex justify-center items-center">
           <Link to="/">CHATAM</Link>
           <div className="animate-bounce">🔥</div>
@@ -68,8 +69,8 @@ function App() {
                   key={index}
                   className={
                     list === "Login"
-                      ? "bg-gray-700 hover:bg-gray-600  py-2 px-4 rounded-full font-black m-4 xxs:m-1"
-                      : "font-black m-4 xxs:m-1"
+                      ? "bg-gray-700 hover:bg-gray-600  py-2 px-4 rounded-full font-black m-4 xxs:m-1 cursor-pointer"
+                      : "font-black m-4 xxs:m-1 cursor-pointer"
                   }
                   onClick={() => handleNav(list)}
                 >
