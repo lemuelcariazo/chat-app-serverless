@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { config } from "../config";
 import axios from "axios";
@@ -6,13 +6,28 @@ import axios from "axios";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-function Authentication({ getData }: any) {
+import { UserContext } from "../utils/userContext";
+
+function Authentication() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const { navigation, setNavigation, setData } = useContext(UserContext);
+
   const { development, production } = config;
   const navigate = useNavigate();
+
+  const handleResponseData = (response: string) => {
+    response
+      ? setNavigation({
+          ...navigation,
+          navList: ["Profile", "Logout"],
+          data: response,
+        })
+      : setNavigation({ ...navigation, navList: ["Login"] });
+    localStorage.setItem("log", response);
+  };
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -23,10 +38,10 @@ function Authentication({ getData }: any) {
         password: password,
       })
       .then((res) => {
-        getData(res);
-        if (res) {
-          navigate("/auth/profile");
-        }
+        console.log(res.data);
+        navigate("/");
+
+        handleResponseData(res.data);
       })
       .catch((e) => {
         console.error(e.response?.data);
