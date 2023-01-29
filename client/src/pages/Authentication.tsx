@@ -26,12 +26,19 @@ function Authentication() {
   );
 
   useEffect(() => {
-    const vanishData = setTimeout(() => {
-      setData(null);
-    }, 3000);
+    let ignore = false;
 
+    if (!ignore) {
+      const vanishData = setTimeout(() => {
+        setData(null);
+      }, 3000);
+
+      return () => {
+        clearTimeout(vanishData);
+      };
+    }
     return () => {
-      clearTimeout(vanishData);
+      ignore = true;
     };
   }, [data]);
 
@@ -72,7 +79,7 @@ function Authentication() {
 
         <div className="flex justify-between items-center w-full cursor-pointer select-none px-3">
           <h6
-            className="text-xs text-slate-100 select-none h-fit w-fit text-center hover:text-slate-400 active:test-sm active:text-sm"
+            className="text-xs text-slate-100 select-none h-5 w-16 text-center hover:text-slate-400 active:test-sm active:text-sm"
             onClick={(e) => {
               setEmail("");
               setPassword("");
@@ -82,14 +89,14 @@ function Authentication() {
             Reset
           </h6>
           <h6
-            className="text-xs text-slate-100 select-none h-5 w-fit text-center hover:text-slate-400 active:test-sm active:text-sm"
+            className="flex justify-center items-center text-xs text-slate-100 select-none h-5 w-20 text-center hover:text-slate-400 active:test-sm active:text-sm"
             onClick={handleToggle}
           >
             {isToggle ? (
               "Register"
             ) : (
               <svg
-                className="w-6 h-6 dark:text-slate-100 text-slate-900"
+                className="w-6 h-6 dark:text-slate-100 select-none active:w-5 active:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

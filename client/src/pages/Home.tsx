@@ -6,7 +6,6 @@ import { config } from "../config";
 
 function Home() {
   const { development, production } = config;
-  const { navigation, setNavigation } = useContext(UserContext);
 
   const { value, isLoading, error } = useFetch(
     development.BASE_URL + "/api/profile"
@@ -14,7 +13,6 @@ function Home() {
   // const { email, id, loggedIn, username } = value;
   const storedData = localStorage.getItem("log");
 
-  
   return (
     <section className="w-full h-full flex justify-center items-center">
       {!value?.loggedIn || storedData == null ? (

@@ -1,7 +1,7 @@
 function Login({ email, setEmail, pw, setPw, cPw, setCPw }: any) {
   const styleInput = {
     LABEL:
-      "block mb-2 text-sm text-gray-100 dark:text-white font-extrabold placeholder:font-bold ",
+      "block mb-2 text-sm text-gray-100 dark:text-white font-extrabold placeholder:font-bold select-none",
 
     INPUT:
       "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
@@ -50,7 +50,7 @@ function Login({ email, setEmail, pw, setPw, cPw, setCPw }: any) {
             value={cPw}
             onChange={(e) => setCPw(e.target.value)}
             className={INPUT}
-            placeholder="password"
+            placeholder="confirm password"
             required
           />
         </label>

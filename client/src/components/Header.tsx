@@ -61,7 +61,7 @@ function Header() {
         </Link>
       </div>
       <nav>
-        <ul className="flex justify-center items-center gap-2 m-2">
+        <ul className="flex justify-center items-center gap-2 m-2 cursor-pointer select-none">
           {navigation.navList.map((list: string, index: number) => {
             const style = StyleNav.find((s) => s.id === list);
             const className = style
