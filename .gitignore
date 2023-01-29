@@ -1,4 +1,5 @@
 .env
 records.md
+socket.md
 node_modules
 .vercel

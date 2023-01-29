@@ -1,84 +1,114 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { config } from "../config";
-import axios from "axios";
-
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-import { UserContext } from "../utils/userContext";
+import useController from "../hooks/useController";
 
 function Authentication() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const { navigation, setNavigation, setData } = useContext(UserContext);
+  const [isToggle, setIsToggle] = useState(true);
 
   const { development, production } = config;
-  const navigate = useNavigate();
+  const {
+    handleRegister,
+    handleLogin,
+    email,
+    password,
+    CPassword,
+    isLoading,
+    setEmail,
+    setPassword,
+    setCPassword,
+    data,
+    setData,
+  } = useController(
+    development.BASE_URL + `/api${isToggle ? "/login" : "/register"}`
+  );
 
-  const handleResponseData = (response: string) => {
-    response
-      ? setNavigation({
-          ...navigation,
-          navList: ["Profile", "Logout"],
-          data: response,
-        })
-      : setNavigation({ ...navigation, navList: ["Login"] });
-    localStorage.setItem("log", response);
-  };
+  useEffect(() => {
+    const vanishData = setTimeout(() => {
+      setData(null);
+    }, 3000);
 
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    return () => {
+      clearTimeout(vanishData);
+    };
+  }, [data]);
+
+  const handleToggle = (e: React.MouseEvent<HTMLHeadingElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    axios
-      .post(development.BASE_URL + "/api/login", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res.data);
-        navigate("/");
-
-        handleResponseData(res.data);
-      })
-      .catch((e) => {
-        console.error(e.response?.data);
-      })
-      .finally(() => {
-        setIsLoading(false);
-        setEmail("");
-        setPassword("");
-      });
+    setIsToggle(!isToggle);
+    console.log(isToggle);
   };
 
   return (
-    <>
-      <form className="bg-gray-800 flex justify-center items-center flex-col gap-5 h-80 w-80 rounded-lg drop-shadow-lg  dark:shadow-slate-50">
-        <Login
-          email={email}
-          setEmail={setEmail}
-          pw={password}
-          setPw={setPassword}
-        />
+    <section className="h-full w-full flex justify-center items-center flex-col">
+      <form className="bg-gray-800 flex justify-center items-center flex-col gap-3 h-96 w-80 rounded-lg drop-shadow-lg  dark:shadow-slate-50">
+        {isToggle ? (
+          <Login
+            email={email}
+            setEmail={setEmail}
+            pw={password}
+            setPw={setPassword}
+          />
+        ) : (
+          <Register
+            email={email}
+            setEmail={setEmail}
+            pw={password}
+            setPw={setPassword}
+            cPw={CPassword}
+            setCPw={setCPassword}
+          />
+        )}
         <div className="w-full h-20 p-3 flex justify-center items-center">
           <button
-            className="w-fit h-fit bg-gray-700 p-2 rounded-md hover:p-3 active:p-2"
-            onClick={handleLogin}
+            className="w-fit h-fit bg-gray-700 p-2 rounded-md hover:p-3 active:p-2 text-slate-100"
+            onClick={isToggle ? handleLogin : handleRegister}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? "Loading..." : isToggle ? "Login" : "Register"}
           </button>
         </div>
 
-        <div className="flex justify-end w-full pr-5 cursor-pointer">
-          <h6 className=" hover:text-slate-400 text-xs">Register</h6>
+        <div className="flex justify-between items-center w-full cursor-pointer select-none px-3">
+          <h6
+            className="text-xs text-slate-100 select-none h-fit w-fit text-center hover:text-slate-400 active:test-sm active:text-sm"
+            onClick={(e) => {
+              setEmail("");
+              setPassword("");
+              setCPassword("");
+            }}
+          >
+            Reset
+          </h6>
+          <h6
+            className="text-xs text-slate-100 select-none h-5 w-fit text-center hover:text-slate-400 active:test-sm active:text-sm"
+            onClick={handleToggle}
+          >
+            {isToggle ? (
+              "Register"
+            ) : (
+              <svg
+                className="w-6 h-6 dark:text-slate-100 text-slate-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+                ></path>
+              </svg>
+            )}
+          </h6>
         </div>
       </form>
-    </>
+      <div className="bottom-12 absolute">{data}</div>
+    </section>
   );
 }
 
 export default Authentication;
-
-//setUser={setUsername} user={username} it is good

@@ -6,6 +6,7 @@ type DATA = {
   email?: string;
   id?: string;
   loggedIn?: boolean;
+  username?: string;
 };
 
 function useFetch(url: string) {
@@ -14,12 +15,13 @@ function useFetch(url: string) {
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
+    let ignore = false;
     setIsLoading(true);
     axios
       .get(url)
       .then((response) => {
         const { data } = response;
-        setValue(data);
+        !ignore && setValue(data);
       })
       .catch((e) => {
         setError(e.response?.data.error);
@@ -29,7 +31,7 @@ function useFetch(url: string) {
       });
 
     return () => {
-      console.log("clean up");
+      ignore = true;
     };
   }, []);
 

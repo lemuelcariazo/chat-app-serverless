@@ -33,13 +33,13 @@ function App() {
 
   return (
     <UserContext.Provider value={{ navigation, setNavigation }}>
-      <div className="flex justify-center items-center flex-col h-screen w-screen font-extrabold text-slate-200 dark:bg-gray-700">
+      <div className="flex justify-start items-center flex-col h-screen w-screen font-extrabold text-slate-900 dark:text-slate-200 dark:bg-gray-700">
         <Header />
-        <main>
+        <main className="grow w-full h-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
       </div>

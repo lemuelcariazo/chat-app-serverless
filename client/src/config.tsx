@@ -6,3 +6,5 @@ export const config = {
     BASE_URL: "https://chat-app-serverless.vercel.app",
   },
 };
+// "http://localhost:8080"
+// "https://chat-app-serverless.vercel.app"

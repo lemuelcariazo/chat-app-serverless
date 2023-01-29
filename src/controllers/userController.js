@@ -2,24 +2,33 @@ const { hashPassword, comparePassword } = require("../helper/bcrypt");
 const { findUser, createUser } = require("../helper/findUser");
 const { deleteCookie } = require("../helper/cookie");
 const User = require("../models/User");
+const emailValidator = require("email-validator");
 
 const handleRegister = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, loggedIn } = req.body;
+
+  const validated = emailValidator.validate(email);
+  console.log(validated);
 
   if (!email || !password) {
     return res.status(401).send("Please provide your credential");
   }
-  const user = await findUser(email);
-  if (user) {
-    return res.status(401).send("Username already taken");
-  }
 
-  try {
-    const hashedPwd = await hashPassword(password, 10);
-    const response = await createUser(email, hashedPwd, res);
-    return response;
-  } catch (error) {
-    res.send(error);
+  if (validated) {
+    const user = await findUser(email);
+    if (user) {
+      return res.status(401).send("Username already taken");
+    }
+
+    try {
+      const hashedPwd = await hashPassword(password, 10);
+      const response = await createUser(email, hashedPwd, res);
+      return response;
+    } catch (error) {
+      res.send(error);
+    }
+  } else {
+    return res.status(500).send("Email is not Valid");
   }
 };
 
@@ -32,13 +41,14 @@ const handleLogin = async (req, res) => {
 };
 
 const handleProfile = async (req, res) => {
-  const { _id, email, loggedIn } = req.user;
+  const { _id, email, loggedIn, username } = req.user;
 
   try {
     return res.json({
       id: _id,
       email: email,
       loggedIn: loggedIn,
+      username: username,
     });
   } catch (e) {
     return res.send(e);
@@ -56,9 +66,8 @@ const handleLogout = async (req, res) => {
 
 const catchIdAndUpdate = async (req, res, next) => {
   const { _id } = req.user;
-  const user = await User.findOne({
-    _id: _id,
-  });
+
+  const user = await User.findOne({ _id: _id });
 
   user.loggedIn = false;
   user.save();

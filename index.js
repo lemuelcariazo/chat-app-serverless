@@ -1,6 +1,6 @@
 const { development } = require("./src/config/config");
 const cookieParser = require("cookie-parser");
-const routes = require("./src/routes/routes");
+const userRoutes = require("./src/routes/userRoutes");
 
 const mongoose = require("mongoose");
 const express = require("express");
@@ -40,7 +40,7 @@ mongoose.connect(
   }
 );
 
-app.use("/api", routes); // my starting route
+app.use("/api/", userRoutes); // my starting route
 
 app.use(express.static(path.join(__dirname, "client", "dist")));
 app.get("*", (__, res) => {
