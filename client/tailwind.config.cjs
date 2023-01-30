@@ -6,7 +6,11 @@ module.exports = {
       sans: ["Helvetica", "Arial", "sans-serif"],
     },
 
-    extend: {},
+    extend: {
+      animation: {
+        "spin-burger": "spin .5s linear forwards",
+      },
+    },
     screens: {
       xxs: "360px",
       xs: "412px",

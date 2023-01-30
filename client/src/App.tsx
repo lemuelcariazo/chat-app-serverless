@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
-import { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import axios from "axios";
 
 import Home from "./pages/Home";
@@ -8,27 +8,30 @@ import Auth from "./pages/Authentication";
 import Profile from "./pages/Profile";
 
 import { UserContext } from "./utils/userContext";
+import BurgerMenu from "./components/burgerMenu";
 
 axios.defaults.withCredentials = true;
 
 interface NAVIGATION {
   data?: string | null;
-  navList?: String[];
+  navList?: Array<string | React.ReactElement>;
 }
 
 function App() {
   const [navigation, setNavigation] = useState<NAVIGATION>({
-    data: "Hello from root App",
-    navList: ["..."],
+    data: null,
+    navList: [],
   });
 
   useEffect(() => {
     const storedData = localStorage.getItem("log");
-    console.log("this is from the local Storage " + storedData);
-
-    storedData === null
+    console.log("Local: " + storedData);
+    !storedData
       ? setNavigation({ ...navigation, navList: ["Login"] })
-      : setNavigation({ ...navigation, navList: ["Profile", "Logout"] });
+      : setNavigation({
+          ...navigation,
+          navList: ["Profile", "Logout", <BurgerMenu />],
+        });
   }, [navigation.data]);
 
   return (

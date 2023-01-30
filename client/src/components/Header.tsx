@@ -1,37 +1,16 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import axios from "axios";
-
-import { config } from "../config";
-import { UserContext } from "../utils/userContext";
+import { Link } from "react-router-dom";
 
 import { StyleNav } from "../utils/styles";
+import { config } from "../config";
+
 import Icons from "../utils/Icons";
+import useController from "../hooks/useController";
 
 function Header() {
-  const navigate = useNavigate();
   const { development, production } = config;
-  const { setNavigation, navigation } = useContext(UserContext);
-
-  const handleResponseData = (response: string) => {
-    response
-      ? setNavigation({ ...navigation, navList: ["Login"], data: response })
-      : setNavigation({ ...navigation, navList: ["Profile", "Logout"] });
-    localStorage.clear();
-  };
-
-  const handleLogOut = async () => {
-    try {
-      const responseLogout = axios.delete(development.BASE_URL + "/api/logout");
-      // console.log((await responseLogout).data);
-      handleResponseData((await responseLogout).data);
-      navigate("/");
-    } catch (e: any) {
-      console.log(e.response?.data?.error);
-      localStorage.clear();
-    }
-  };
+  const { handleLogOut, navigation, navigate } = useController(
+    development.BASE_URL + "/api/logout"
+  );
 
   const handleNav = (list: string) => {
     switch (list) {

@@ -10,7 +10,7 @@ function Home() {
   const { value, isLoading, error } = useFetch(
     development.BASE_URL + "/api/profile"
   );
-  // const { email, id, loggedIn, username } = value;
+  const { email, id, loggedIn, username } = value;
   const storedData = localStorage.getItem("log");
 
   return (
@@ -19,10 +19,10 @@ function Home() {
         error
       ) : (
         <section className="flex justify-center items-center flex-col">
-          <h1>{value?.id}</h1>
-          <h1>{String(value?.loggedIn)}</h1>
-          <h1>{value?.username || "No value"}</h1>
-          <h1>{value?.email}</h1>
+          <h1>{id}</h1>
+          <h1>{String(loggedIn)}</h1>
+          <h1>{username || "No value"}</h1>
+          <h1>{email}</h1>
         </section>
       )}
     </section>

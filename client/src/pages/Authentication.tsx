@@ -7,7 +7,6 @@ import useController from "../hooks/useController";
 
 function Authentication() {
   const [isToggle, setIsToggle] = useState(true);
-
   const { development, production } = config;
   const {
     handleRegister,
@@ -29,6 +28,7 @@ function Authentication() {
     let ignore = false;
 
     if (!ignore) {
+      data === "New User has been created!" ? setIsToggle(true) : null;
       const vanishData = setTimeout(() => {
         setData(null);
       }, 3000);
@@ -45,7 +45,6 @@ function Authentication() {
   const handleToggle = (e: React.MouseEvent<HTMLHeadingElement>) => {
     e.preventDefault();
     setIsToggle(!isToggle);
-    console.log(isToggle);
   };
 
   return (

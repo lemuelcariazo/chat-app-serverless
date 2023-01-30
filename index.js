@@ -19,6 +19,7 @@ app.use(
       "http://localhost:4000",
       "http://localhost:5173",
       "https://chat-app-serverless.vercel.app",
+      "https://chat-app-serverless-lemuelcariazo.vercel.app",
     ],
     credentials: true,
   })
