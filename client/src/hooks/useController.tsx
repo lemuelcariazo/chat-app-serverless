@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { UserContext } from "../utils/userContext";
+import { UserContext, StyleContext } from "../utils/userContext";
 
 function useController(url: string) {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function useController(url: string) {
   const [data, setData] = useState<any>(null);
 
   const { navigation, setNavigation } = useContext(UserContext);
+  const { open, setOpen } = useContext(StyleContext);
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -75,6 +76,8 @@ function useController(url: string) {
       response && setNavigation({ ...navigation, data: response });
       localStorage.clear();
       navigate("/");
+      setOpen(false);
+      setData(false);
     } catch (e: any) {
       console.log(e.response?.data?.error);
       localStorage.clear();

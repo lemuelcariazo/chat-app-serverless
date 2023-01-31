@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-import { StyleNav } from "../utils/styles";
+// import { StyleNav } from "../utils/styles";
+import useStyles from "../hooks/useStyles";
 import { config } from "../config";
 
 import Icons from "../utils/Icons";
@@ -8,6 +9,7 @@ import useController from "../hooks/useController";
 
 function Header() {
   const { development, production } = config;
+  const { StyleNav } = useStyles();
   const { handleLogOut, navigation, navigate } = useController(
     development.BASE_URL + "/api/logout"
   );
@@ -32,20 +34,18 @@ function Header() {
   };
 
   return (
-    <header className="top-0 left-0 right-0 bg-sky-100 h-14 drop-shadow-md shadow-inner flex justify-between items-center w-screen dark:bg-gray-800">
-      <div className="font-black m-4 flex justify-center items-center">
+    <header className="top-0 left-0 right-0 flex h-14 w-screen items-center justify-between bg-sky-100 shadow-inner drop-shadow-md dark:bg-gray-800">
+      <div className="m-4 flex items-center justify-center font-black">
         <Link to="/" className="flex">
           CHATAM
           <Icons />
         </Link>
       </div>
       <nav>
-        <ul className="flex justify-center items-center gap-2 m-2 cursor-pointer select-none">
+        <ul className="m-2 flex cursor-pointer select-none items-center justify-center gap-2">
           {navigation.navList.map((list: string, index: number) => {
             const style = StyleNav.find((s) => s.id === list);
-            const className = style
-              ? style?.styleNav
-              : "font-black m-4 xxs:m-1 cursor-pointer";
+            const className = style && style?.styleNav;
             return (
               <li
                 key={index}

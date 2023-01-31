@@ -11,7 +11,6 @@ const authentication = async (req, res, next) => {
   // to verify the user if he is human or legitimate user
   const { email, password, isLogin } = req.body;
   const validated = emailValidator.validate(email);
-  console.log(validated);
 
   if (!email || !password) {
     return res.status(401).send("Please complete your credential");
@@ -33,7 +32,6 @@ const authentication = async (req, res, next) => {
       const token = createJwt(user); // create jwt token
       saveCookie(token, res); // store token in http only cookie
       user.loggedIn = true;
-      console.log(user.loggedIn);
       await user.save();
       return next();
     } catch (e) {

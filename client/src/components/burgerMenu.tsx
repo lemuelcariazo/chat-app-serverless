@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { StyleContext } from "../utils/userContext";
 
 const BurgerMenu: React.FC = () => {
+  const { open, setOpen } = useContext(StyleContext);
+
   const [effect, setEffect] = useState<boolean>(false);
   const handleToggle = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setEffect(true);
-    console.log(effect);
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -24,15 +27,26 @@ const BurgerMenu: React.FC = () => {
     <div
       className={`${
         effect && "animate-spin-burger"
-      }  flex justify-center items-center flex-col gap-1 md:hidden`}
+      } flex flex-col items-center justify-center gap-1 transition-all sm:hidden`}
       onClick={handleToggle}
     >
-      <span className="h-1.5 w-8 bg-slate-50 rounded-md"></span>
-      <span className="h-1.5 w-8 bg-slate-50 rounded-md"></span>
-      <span className="h-1.5 w-8 bg-slate-50 rounded-md"></span>
+      <span
+        className={`${
+          open && "absolute origin-center -rotate-45 transition-all"
+        } block h-1.5 w-8 rounded-md bg-slate-50`}
+      ></span>
+      <span
+        className={`${
+          open && "hidden origin-center"
+        } block h-1.5 w-8 rounded-md bg-slate-50`}
+      ></span>
+      <span
+        className={`${
+          open && "origin-center rotate-45 transition-all"
+        } block h-1.5 w-8 rounded-md bg-slate-50`}
+      ></span>
     </div>
   );
 };
 
 export default BurgerMenu;
-// this trigger the button to open the menu

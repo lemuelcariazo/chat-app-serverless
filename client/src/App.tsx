@@ -7,7 +7,8 @@ import Header from "./components/Header";
 import Auth from "./pages/Authentication";
 import Profile from "./pages/Profile";
 
-import { UserContext } from "./utils/userContext";
+import { UserContext, StyleContext } from "./utils/userContext";
+
 import BurgerMenu from "./components/burgerMenu";
 
 axios.defaults.withCredentials = true;
@@ -22,6 +23,10 @@ function App() {
     data: null,
     navList: [],
   });
+  const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    console.log(open);
+  }, [open]);
 
   useEffect(() => {
     const storedData = localStorage.getItem("log");
@@ -30,22 +35,24 @@ function App() {
       ? setNavigation({ ...navigation, navList: ["Login"] })
       : setNavigation({
           ...navigation,
-          navList: ["Profile", "Logout", <BurgerMenu />],
+          navList: ["Logout", "Profile", <BurgerMenu />],
         });
   }, [navigation.data]);
 
   return (
     <UserContext.Provider value={{ navigation, setNavigation }}>
-      <div className="flex justify-start items-center flex-col h-screen w-screen font-extrabold text-slate-900 dark:text-slate-200 dark:bg-gray-700">
-        <Header />
-        <main className="grow w-full h-full">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </main>
-      </div>
+      <StyleContext.Provider value={{ open, setOpen }}>
+        <div className="flex justify-start items-center flex-col h-screen w-screen font-extrabold text-slate-900 dark:text-slate-200 dark:bg-gray-700">
+          <Header />
+          <main className="grow w-full h-full">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </main>
+        </div>
+      </StyleContext.Provider>
     </UserContext.Provider>
   );
 }
