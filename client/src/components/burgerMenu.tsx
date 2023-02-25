@@ -27,7 +27,7 @@ const BurgerMenu: React.FC = () => {
     <div
       className={`${
         effect && "animate-spin-burger"
-      } flex flex-col items-center justify-center gap-1 transition-all sm:hidden`}
+      } flex h-8 w-9 flex-col items-center justify-center gap-1 transition-all sm:hidden`}
       onClick={handleToggle}
     >
       <span

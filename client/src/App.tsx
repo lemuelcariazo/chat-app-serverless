@@ -24,27 +24,25 @@ function App() {
     navList: [],
   });
   const [open, setOpen] = useState<boolean>(false);
-  useEffect(() => {
-    console.log(open);
-  }, [open]);
 
   useEffect(() => {
     const storedData = localStorage.getItem("log");
     console.log("Local: " + storedData);
-    !storedData
+    console.log(navigation?.data);
+    !storedData && storedData === null
       ? setNavigation({ ...navigation, navList: ["Login"] })
       : setNavigation({
           ...navigation,
           navList: ["Logout", "Profile", <BurgerMenu />],
         });
-  }, [navigation.data]);
+  }, [navigation?.data]);
 
   return (
     <UserContext.Provider value={{ navigation, setNavigation }}>
       <StyleContext.Provider value={{ open, setOpen }}>
-        <div className="flex justify-start items-center flex-col h-screen w-screen font-extrabold text-slate-900 dark:text-slate-200 dark:bg-gray-700">
+        <div className="flex h-screen w-screen flex-col items-center justify-start font-extrabold text-slate-900 dark:bg-gray-700 dark:text-slate-200">
           <Header />
-          <main className="grow w-full h-full">
+          <main className="h-full w-full grow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />

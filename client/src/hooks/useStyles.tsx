@@ -23,7 +23,7 @@ const useStyles = () => {
       styleNav: `${
         open
           ? "not-sr-only bg-gray-700 hover:bg-gray-600 py-2 px-4 font-black m-4 xxs:m-1 cursor-pointer text-slate-100 xxs:block"
-          : "sr-only sm:not-sr-only transition-all"
+          : "sr-only sm:not-sr-only"
       }`,
     },
   ];

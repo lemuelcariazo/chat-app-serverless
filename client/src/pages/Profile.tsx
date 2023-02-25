@@ -10,12 +10,13 @@ type LOG = {
 
 function Profile() {
   return (
-    <section className="flex justify-center items-center h-full w-44 ml-10 bg-slate-300 dark:bg-slate-600">
+    <section className="ml-10 flex h-full w-44 items-center justify-center bg-slate-300 dark:bg-slate-600">
       <div>this is profile</div>
+      <h1>Current friends: 0</h1>
       <article>
-        <div className="flex gap-1 flex-col">
+        <div className="flex flex-col gap-1">
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -31,7 +32,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -45,7 +46,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -59,7 +60,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -73,7 +74,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -87,7 +88,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -101,7 +102,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -115,7 +116,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -129,7 +130,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -143,7 +144,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -157,7 +158,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -171,7 +172,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -185,7 +186,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -199,7 +200,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -213,7 +214,7 @@ function Profile() {
             ></path>
           </svg>
           <svg
-            className="w-6 h-6 dark:text-white"
+            className="h-6 w-6 dark:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

@@ -13,7 +13,7 @@ function Header() {
   const { handleLogOut, navigation, navigate } = useController(
     development.BASE_URL + "/api/logout"
   );
-
+// actiom for nav list route
   const handleNav = (list: string) => {
     switch (list) {
       case "Login":
@@ -24,7 +24,7 @@ function Header() {
         handleLogOut();
         break;
       case "Profile":
-        console.log("I clicked " + list);
+        // console.log("I clicked " + list);
         navigate("/profile");
         break;
 

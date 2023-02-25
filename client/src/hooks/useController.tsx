@@ -14,7 +14,7 @@ function useController(url: string) {
   const [data, setData] = useState<any>(null);
 
   const { navigation, setNavigation } = useContext(UserContext);
-  const { open, setOpen } = useContext(StyleContext);
+  // const { open, setOpen } = useContext(StyleContext);
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ function useController(url: string) {
       response && setNavigation({ ...navigation, data: response });
       localStorage.clear();
       navigate("/");
-      setOpen(false);
+      // setOpen(false);
       setData(false);
     } catch (e: any) {
       console.log(e.response?.data?.error);

@@ -48,8 +48,8 @@ function Authentication() {
   };
 
   return (
-    <section className="h-full w-full flex justify-center items-center flex-col">
-      <form className="bg-gray-800 flex justify-center items-center flex-col gap-3 h-96 w-80 rounded-lg drop-shadow-lg  dark:shadow-slate-50">
+    <section className="flex h-full w-full flex-col items-center justify-center">
+      <form className="flex h-96 w-80 flex-col items-center justify-center gap-3 rounded-lg bg-gray-800 drop-shadow-lg  dark:shadow-slate-50">
         {isToggle ? (
           <Login
             email={email}
@@ -67,18 +67,18 @@ function Authentication() {
             setCPw={setCPassword}
           />
         )}
-        <div className="w-full h-20 p-3 flex justify-center items-center">
+        <div className="flex h-20 w-full items-center justify-center p-3">
           <button
-            className="w-fit h-fit bg-gray-700 p-2 rounded-md hover:p-3 active:p-2 text-slate-100"
+            className="h-fit w-fit rounded-md bg-gray-700 p-2 text-slate-100 hover:p-3 active:p-2"
             onClick={isToggle ? handleLogin : handleRegister}
           >
-            {isLoading ? "Loading..." : isToggle ? "Login" : "Register"}
+            {isLoading ? "..." : isToggle ? "Login" : "Register"}
           </button>
         </div>
 
-        <div className="flex justify-between items-center w-full cursor-pointer select-none px-3">
+        <div className="flex w-full cursor-pointer select-none items-center justify-between px-3">
           <h6
-            className="text-xs text-slate-100 select-none h-5 w-16 text-center hover:text-slate-400 active:test-sm active:text-sm"
+            className="active:test-sm h-5 w-16 select-none text-center text-xs text-slate-100 hover:text-slate-400 active:text-sm"
             onClick={(e) => {
               setEmail("");
               setPassword("");
@@ -88,14 +88,14 @@ function Authentication() {
             Reset
           </h6>
           <h6
-            className="flex justify-center items-center text-xs text-slate-100 select-none h-5 w-20 text-center hover:text-slate-400 active:test-sm active:text-sm"
+            className="active:test-sm flex h-5 w-20 select-none items-center justify-center text-center text-xs text-slate-100 hover:text-slate-400 active:text-sm"
             onClick={handleToggle}
           >
             {isToggle ? (
               "Register"
             ) : (
               <svg
-                className="w-6 h-6 dark:text-slate-100 select-none active:w-5 active:h-5"
+                className="h-6 w-6 select-none active:h-5 active:w-5 dark:text-slate-100"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ function Authentication() {
           </h6>
         </div>
       </form>
-      <div className="bottom-12 absolute">{data}</div>
+      <div className="absolute bottom-12">{data}</div>
     </section>
   );
 }
