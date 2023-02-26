@@ -44,8 +44,6 @@ const handleLogin = async (req, res) => {
 
 const handleProfile = async (req, res) => {
   const { _id, email, loggedIn, username } = req.user;
-  const ipLog = req.ip;
-  console.log(ipLog);
   try {
     return res.json({
       id: _id,
@@ -99,11 +97,6 @@ const saveUserLogs = async (req, res, next) => {
   const { method, url, ip } = req;
   const timestamp = new Date().toISOString();
   try {
-    console.log(`${timestamp} ${ip} ${method} ${url}`);
-    console.log(
-      req.user._id,
-      "this is the id comming from the initial request"
-    );
     const userId = req.user._id;
     await UserLog.create({
       user: userId,
@@ -113,7 +106,6 @@ const saveUserLogs = async (req, res, next) => {
     return next();
   } catch (e) {
     res.send(e);
-    console.log(e);
   }
 };
 

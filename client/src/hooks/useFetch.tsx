@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 import axios from "axios";
 
@@ -15,7 +15,7 @@ function useFetch(url: string) {
   const [error, setError] = useState<any>(null);
   const memoValue = useMemo(() => value, [value]);
 
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     let ignore = false;
     setIsLoading(true);
     axios
@@ -26,7 +26,6 @@ function useFetch(url: string) {
       })
       .catch((e) => {
         setError(e.response);
-        // setError(e.response?.data.error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -35,7 +34,11 @@ function useFetch(url: string) {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [url]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return { memoValue, isLoading, error };
 }
