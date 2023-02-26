@@ -1,2 +1,3 @@
 # chat-app-serverless
-test for deployment of my chat app
+
+I am creating it for fun and to cultivate my potential

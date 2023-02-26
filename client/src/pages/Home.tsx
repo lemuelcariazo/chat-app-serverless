@@ -30,9 +30,9 @@ function Home() {
   }
 
   return (
-    <section className="flex h-full w-full items-center justify-center border">
+    <section className="flex h-full w-full items-center justify-center">
       {!value?.loggedIn || storedData == null ? (
-        <h1>{"Please Login and make new social friends"}</h1>
+        <h1>{"Come In! lets talk and read"}</h1>
       ) : (
         <section className="flex flex-col items-center justify-center">
           <div className="absolute left-2">

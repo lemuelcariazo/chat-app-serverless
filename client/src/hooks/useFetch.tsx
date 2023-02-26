@@ -25,7 +25,8 @@ function useFetch(url: string) {
         !ignore && setValue(data);
       })
       .catch((e) => {
-        setError(e.response?.data.error);
+        setError(e.response);
+        // setError(e.response?.data.error);
       })
       .finally(() => {
         setIsLoading(false);

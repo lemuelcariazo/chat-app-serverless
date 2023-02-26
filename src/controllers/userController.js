@@ -1,8 +1,10 @@
 const { hashPassword, comparePassword } = require("../helper/bcrypt");
 const { findUser, createUser } = require("../helper/findUser");
 const { deleteCookie } = require("../helper/cookie");
-const User = require("../models/User");
 const emailValidator = require("email-validator");
+
+const User = require("../models/User");
+const UserLog = require("../models/UserLog");
 
 const handleRegister = async (req, res) => {
   const { email, password, loggedIn } = req.body;
@@ -42,7 +44,8 @@ const handleLogin = async (req, res) => {
 
 const handleProfile = async (req, res) => {
   const { _id, email, loggedIn, username } = req.user;
-
+  const ipLog = req.ip;
+  console.log(ipLog);
   try {
     return res.json({
       id: _id,
@@ -92,6 +95,28 @@ const checkLoggedIn = async (req, res, next) => {
   }
 };
 
+const saveUserLogs = async (req, res, next) => {
+  const { method, url, ip } = req;
+  const timestamp = new Date().toISOString();
+  try {
+    console.log(`${timestamp} ${ip} ${method} ${url}`);
+    console.log(
+      req.user._id,
+      "this is the id comming from the initial request"
+    );
+    const userId = req.user._id;
+    await UserLog.create({
+      user: userId,
+      ipAddress: ip,
+      timestamp: timestamp,
+    });
+    return next();
+  } catch (e) {
+    res.send(e);
+    console.log(e);
+  }
+};
+
 module.exports = {
   handleRegister,
   handleLogin,
@@ -99,4 +124,5 @@ module.exports = {
   handleProfile,
   catchIdAndUpdate,
   checkLoggedIn,
+  saveUserLogs,
 };

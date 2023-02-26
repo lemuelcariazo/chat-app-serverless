@@ -32,6 +32,7 @@ const authentication = async (req, res, next) => {
       const token = createJwt(user); // create jwt token
       saveCookie(token, res); // store token in http only cookie
       user.loggedIn = true;
+      req.user = user;
       await user.save();
       return next();
     } catch (e) {

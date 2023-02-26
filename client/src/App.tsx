@@ -28,7 +28,6 @@ function App() {
   useEffect(() => {
     const storedData = localStorage.getItem("log");
     console.log("Local: " + storedData);
-    console.log(navigation?.data);
     !storedData && storedData === null
       ? setNavigation({ ...navigation, navList: ["Login"] })
       : setNavigation({
