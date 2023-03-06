@@ -4,7 +4,7 @@ const saveCookie = async (token, res) => {
     secure: true,
     sameSite: "none",
     path: "/",
-    expires: new Date(Date.now() + 3600000),
+    expires: new Date(Date.now() + 36000000),
   });
 };
 

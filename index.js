@@ -43,6 +43,8 @@ mongoose.connect(
 
 app.use("/api/", userRoutes); // my starting route
 
+
+
 app.use(express.static(path.join(__dirname, "client", "dist")));
 app.get("*", (__, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));

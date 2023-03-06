@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Auth from "./pages/Authentication";
 import Profile from "./pages/Profile";
+import Chat from "./pages/Chat";
 
 import { UserContext, StyleContext } from "./utils/userContext";
 
@@ -32,7 +33,7 @@ function App() {
       ? setNavigation({ ...navigation, navList: ["Login"] })
       : setNavigation({
           ...navigation,
-          navList: ["Logout", "Profile", <BurgerMenu />],
+          navList: ["Chat", "Logout", "Profile", <BurgerMenu />],
         });
   }, [navigation?.data]);
 
@@ -44,6 +45,7 @@ function App() {
           <main className="h-full w-full grow">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/chat" element={<Chat />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
             </Routes>

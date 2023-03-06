@@ -13,12 +13,14 @@ function Header() {
   const { handleLogOut, navigation, navigate } = useController(
     development.BASE_URL + "/api/logout"
   );
-// actiom for nav list route
+  // actiom for nav list route
   const handleNav = (list: string) => {
     switch (list) {
+      case "Chat":
+        navigate("/chat");
+        break;
       case "Login":
         navigate("/auth");
-
         break;
       case "Logout":
         handleLogOut();
@@ -42,7 +44,7 @@ function Header() {
         </Link>
       </div>
       <nav>
-        <ul className="m-2 flex cursor-pointer select-none items-center justify-center gap-2">
+        <ul className="gap-.5 m-2 flex cursor-pointer select-none items-center justify-center sm:gap-2">
           {navigation.navList.map((list: string, index: number) => {
             const style = StyleNav.find((s) => s.id === list);
             const className = style && style?.styleNav;

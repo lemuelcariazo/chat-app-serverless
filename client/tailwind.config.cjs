@@ -10,7 +10,13 @@ module.exports = {
       animation: {
         "spin-burger": "spin .5s linear forwards",
       },
+      height: {
+        scrollbarHeight: "40rem",
+      },
     },
+
+    scrollbar: {},
+
     screens: {
       xxs: "360px",
       xs: "412px",
@@ -21,5 +27,7 @@ module.exports = {
       "2xl": "1536px",
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };
