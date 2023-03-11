@@ -5,19 +5,3 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
-
-/* 
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888888; 
-  border-radius: 5px; 
-}
-
- */

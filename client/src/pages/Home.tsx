@@ -30,7 +30,7 @@ function Home() {
   }
 
   return (
-    <section className="flex h-full w-full items-center justify-center">
+    <section className="flex h-full w-full items-center justify-center bg-gray-400">
       {!value?.loggedIn || storedData == null ? (
         <h1>{"Come In! lets talk and read"}</h1>
       ) : (

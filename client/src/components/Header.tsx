@@ -36,7 +36,7 @@ function Header() {
   };
 
   return (
-    <header className="top-0 left-0 right-0 flex h-14 w-screen items-center justify-between bg-sky-100 shadow-inner drop-shadow-md dark:bg-gray-800">
+    <header className="flex h-[5rem] w-full items-center justify-between bg-sky-100 shadow-inner drop-shadow-md dark:bg-gray-800 dark:text-slate-100">
       <div className="m-4 flex items-center justify-center font-black">
         <Link to="/" className="flex">
           CHATAM

@@ -40,9 +40,9 @@ function App() {
   return (
     <UserContext.Provider value={{ navigation, setNavigation }}>
       <StyleContext.Provider value={{ open, setOpen }}>
-        <div className="flex h-screen w-screen flex-col items-center justify-start font-extrabold text-slate-900 dark:bg-gray-700 dark:text-slate-200">
+        <div className="flex h-full w-full flex-col items-center justify-center font-black">
           <Header />
-          <main className="h-full w-full grow">
+          <main className="h-full w-full ">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/chat" element={<Chat />} />

@@ -1,5 +1,5 @@
 import { getCookieParser } from "next/dist/server/api-utils";
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 
 function Chat() {
   const [contacts, setContacts] = useState<String[]>([
@@ -21,29 +21,35 @@ function Chat() {
     "Penelope",
     "Nicholson",
   ]);
-
+  const [searchFriend, setSearchFriend] = useState<any>("");
   return (
     <>
-      <div className="flex h-full w-full items-center justify-center">
-        <section className="relative flex h-full w-full justify-center">
-          <div className="scrollbar-rounded-lg absolute h-full w-[21.5em] gap-2 overflow-hidden p-2 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-900 sm:w-[22em]">
+      <div className="flex h-full w-full items-center justify-center text-slate-100 dark:bg-slate-700">
+        <section className="flex h-screen min-w-full flex-col items-center justify-center text-slate-100 dark:bg-slate-700 sm:min-w-[20rem]">
+          <div className="font-bolder flex h-fit w-full items-center justify-end border-b-[.5px] border-r-[.5px] p-2 sm:flex-col">
+            <h1 className="">Chat</h1>
+            <input
+              className="m-2 rounded-full border-none px-3 py-1 py-3 focus:border dark:text-slate-900"
+              type="text"
+              placeholder="search friends..."
+              value={searchFriend}
+              onChange={(e) => setSearchFriend(e.target.value)}
+            />
+          </div>
+          <div className="flex h-full min-w-full flex-col items-center justify-start gap-2 border-r-[.5px] border-dotted p-2 scrollbar sm:min-w-[20rem]">
             {contacts.map((contact, index) => {
               return (
-                <div className="flex h-[4.3em] w-80 items-center justify-center">
-                  <div
-                    key={index}
-                    className="pointer relative flex h-12 w-full cursor-pointer select-none items-center justify-center overflow-hidden rounded-md py-8 hover:border hover:bg-transparent"
-                  >
-                    {contact}
-                  </div>
+                <div
+                  key={index}
+                  className="flex w-full cursor-pointer select-none items-center justify-center rounded-md border border-slate-900 bg-transparent p-4 hover:border-slate-100 hover:text-slate-400 active:bg-slate-300 active:text-slate-900"
+                >
+                  <h1>{contact}</h1>
                 </div>
               );
             })}
           </div>
         </section>
-        <section className="hidden border sm:block sm:h-full sm:w-full">
-          convoBox
-        </section>
+        <section className="hidden sm:block sm:h-full sm:w-full"></section>
         <section className="hidden border sm:block sm:h-full sm:w-full">
           info
         </section>
