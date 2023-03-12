@@ -13,6 +13,9 @@ module.exports = {
       height: {
         scrollbarHeight: "40rem",
       },
+      scrollbar: {
+        thin: { width: "10em" },
+      },
     },
 
     scrollbar: {},
@@ -27,7 +30,5 @@ module.exports = {
       "2xl": "1536px",
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require("tailwind-scrollbar")],
 };

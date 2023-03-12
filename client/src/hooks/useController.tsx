@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -84,7 +84,36 @@ function useController(url: string) {
     }
   };
   // Register, Login, Logout ;)
+
+  const [findEmail, setFindEmail] = useState<any>("");
+  const [user, setUser] = useState<any>([]);
+  const memoizedData = useMemo(() => user, [user]);
+  const findUser = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (!findEmail) {
+      console.log("Please provide a username");
+      setIsLoading(false);
+    } else {
+      try {
+        const response = await axios.post(url, { email: findEmail });
+        setUser(response?.data);
+        console.log(user);
+      } catch (e: any) {
+        console.log(e?.response?.data);
+        setUser(e?.response?.data);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
   return {
+    memoizedData,
+    setUser,
+    findEmail,
+    setFindEmail,
+    findUser,
     handleRegister,
     handleLogin,
     handleLogOut,

@@ -26,17 +26,17 @@ function Chat() {
     <>
       <div className="flex h-full w-full items-center justify-center text-slate-100 dark:bg-slate-700">
         <section className="flex h-screen min-w-full flex-col items-center justify-center text-slate-100 dark:bg-slate-700 sm:min-w-[20rem]">
-          <div className="font-bolder flex h-fit w-full items-center justify-end border-b-[.5px] border-r-[.5px] p-2 sm:flex-col">
+          <div className="font-bolder flex h-fit w-full items-center justify-end border-b-[.5px] p-2 sm:flex-col sm:border-r-[.5px]">
             <h1 className="">Chat</h1>
             <input
-              className="m-2 rounded-full border-none px-3 py-1 py-3 focus:border dark:text-slate-900"
+              className="m-2 rounded-full border-none py-3 px-4 focus:border dark:text-slate-900"
               type="text"
               placeholder="search friends..."
               value={searchFriend}
               onChange={(e) => setSearchFriend(e.target.value)}
             />
           </div>
-          <div className="flex h-full min-w-full flex-col items-center justify-start gap-2 border-r-[.5px] border-dotted p-2 scrollbar sm:min-w-[20rem]">
+          <div className="flex h-full min-w-full flex-col items-center justify-start gap-2 p-2 scrollbar scrollbar-thin scrollbar-thumb-transparent sm:min-w-[20re.m] sm:border-r-[.5px] sm:border-dotted">
             {contacts.map((contact, index) => {
               return (
                 <div
