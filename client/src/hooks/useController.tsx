@@ -87,8 +87,9 @@ function useController(url: string) {
 
   const [findEmail, setFindEmail] = useState<any>("");
   const [user, setUser] = useState<any>([]);
+
   const memoizedData = useMemo(() => user, [user]);
-  const findUser = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const findUser = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     if (!findEmail) {
@@ -98,12 +99,12 @@ function useController(url: string) {
       try {
         const response = await axios.post(url, { email: findEmail });
         setUser(response?.data);
-        console.log(user);
       } catch (e: any) {
         console.log(e?.response?.data);
         setUser(e?.response?.data);
       } finally {
         setIsLoading(false);
+        setFindEmail("");
       }
     }
   };

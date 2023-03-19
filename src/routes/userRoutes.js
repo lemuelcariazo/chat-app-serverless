@@ -37,6 +37,18 @@ router.post("/findUser", async (req, res) => {
   }
 });
 
+router.post("/findAllUser", async (req, res) => {
+  try {
+    const user = await User.find().select("email");
+    if (!user) {
+      return res.status(404).send("No user found");
+    }
+    return res.send(user);
+  } catch (e) {
+    return res.send(e);
+  }
+});
+
 router.get("chatRoom", (req, res) => {});
 
 module.exports = router;

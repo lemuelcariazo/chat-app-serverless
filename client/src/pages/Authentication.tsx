@@ -48,7 +48,7 @@ function Authentication() {
   };
 
   return (
-    <section className="flex h-full w-full flex-col items-center justify-center">
+    <section className="flex h-screen w-full flex-col items-center justify-center dark:bg-slate-800">
       <form className="flex h-96 w-80 flex-col items-center justify-center gap-3 rounded-lg bg-gray-800 drop-shadow-lg  dark:shadow-slate-50">
         {isToggle ? (
           <Login
