@@ -11,9 +11,9 @@ const SearchInput = ({ handleUserProfile }: any) => {
   const { development } = config;
   const [fetchUser, setFetchUser] = useState<FETCH_USER[]>([]);
   const [typeUser, setTypeUser] = useState<any>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [defaultHighLight, setDefaultHighLight] =
-    useState<String>("bg-slate-600");
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  // const [defaultHighLight, setDefaultHighLight] =
+  //   useState<String>("bg-slate-600");
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // Call the API with the search term
@@ -44,20 +44,16 @@ const SearchInput = ({ handleUserProfile }: any) => {
   const handleKey = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case "ArrowDown":
-        console.log("Arrow Down");
-        // setDefaultHighLight("bg-slate-900");
-        setCurrentIndex(currentIndex + 1);
+        setSelectedIndex(
+          (prevIndex: number) => (prevIndex + 1) % filteredUser.length
+        );
 
         break;
       case "ArrowUp":
-        console.log("Arrow Up");
-        // setDefaultHighLight("bg-slate-600");
-        setCurrentIndex(currentIndex - 1);
+        setSelectedIndex((prevIndex) => (prevIndex - 1) % filteredUser.length);
+
       default:
-        console.log("this is default");
-        setDefaultHighLight("bg-slate-600");
     }
-    console.log(currentIndex);
   };
 
   return (
@@ -74,7 +70,9 @@ const SearchInput = ({ handleUserProfile }: any) => {
           ? filteredUser.map(({ email }, index) => {
               return typeUser === email ? null : (
                 <p
-                  className={`w-full cursor-pointer select-none rounded-md p-4 hover:bg-slate-600 active:rounded-full dark:text-slate-100 ${defaultHighLight}`}
+                  className={`w-full cursor-pointer select-none rounded-md p-4 hover:bg-slate-500 active:rounded-full dark:text-slate-100 ${
+                    selectedIndex === index && "bg-slate-800 dark:bg-slate-600"
+                  }`}
                   key={index}
                 >
                   {email}
