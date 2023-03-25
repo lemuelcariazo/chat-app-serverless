@@ -31,7 +31,8 @@ router.post("/findUser", async (req, res) => {
     return res.status(404).send("No user found");
   }
   try {
-    return res.send(user.email);
+    const { email, loggedIn, _id } = user;
+    return res.send({ _id, email, loggedIn });
   } catch (e) {
     return res.send(e);
   }
@@ -43,6 +44,7 @@ router.post("/findAllUser", async (req, res) => {
     if (!user) {
       return res.status(404).send("No user found");
     }
+    console.log(user);
     return res.send(user);
   } catch (e) {
     return res.send(e);
