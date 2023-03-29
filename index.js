@@ -41,16 +41,26 @@ mongoose.connect(
   }
 );
 
-app.use("/api/", userRoutes); // my starting route
-
-
 
 app.use(express.static(path.join(__dirname, "client", "dist")));
 app.get("*", (__, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
+
+
+
+app.use("/api/", userRoutes); // my starting route
+
+
+
+
+
+
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
 });
+
+
